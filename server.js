@@ -74,6 +74,15 @@ const init = async () => {
         });
       },
     },
+    {
+      method: "POST",
+      path: "/login",
+      handler: (request, h) => {
+        const nama = request.payload.name;
+        const pass = request.payload.password;
+        return `<h1>${nama} ${pass}</h1>`;
+      },
+    },
   ]);
 
   await server.start();
