@@ -64,6 +64,16 @@ const init = async () => {
         return h.file("./pages/index.html");
       },
     },
+    {
+      method: "GET",
+      path: "/unduh",
+      handler: (request, h) => {
+        return h.file("./pages/index.html", {
+          mode: "attachment",
+          filename: "welcome-download.html",
+        });
+      },
+    },
   ]);
 
   await server.start();
