@@ -14,15 +14,12 @@ const sequelize = new Sequelize("hapi_tutorial", "root", "", {
 //     console.log("not connect");
 //   });
 
-async function testconnection() {
+module.exports.getUsers = async function () {
   try {
     await sequelize.authenticate();
-    console.log("Connect");
     const [result, metadata] = await sequelize.query("select * from users");
-    console.log(result);
+    return result;
   } catch (error) {
-    console.log("failed to connect");
+    return "Error see data on database";
   }
-}
-
-testconnection();
+};
