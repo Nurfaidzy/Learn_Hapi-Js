@@ -4,15 +4,7 @@ const sequelize = new Sequelize("hapi_tutorial", "root", "", {
   port: 3306,
   dialect: "mysql",
 });
-
-// sequelize
-//   .authenticate()
-//   .then(() => {
-//     console.log("connect");
-//   })
-//   .catch(() => {
-//     console.log("not connect");
-//   });
+module.exports.connect = sequelize;
 
 module.exports.getUsers = async function () {
   try {

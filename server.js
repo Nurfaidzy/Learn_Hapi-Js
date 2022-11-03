@@ -2,6 +2,9 @@
 
 const Hapi = require("@hapi/hapi");
 const Inert = require("@hapi/inert");
+const Connection = require("./dbconfig/index");
+
+const users = require("./models/users");
 
 const init = async () => {
   const server = Hapi.Server({
@@ -75,11 +78,21 @@ const init = async () => {
       },
     },
     {
+      method: "GET",
+      path: "/getusers",
+      handler: async (request, h) => {
+        const dbConnect = await Connection.connect();
+        console.log(getDataUsers);
+        return "<h1>hai</h1>";
+      },
+    },
+    {
       method: "POST",
       path: "/login",
       handler: (request, h) => {
         const nama = request.payload.name;
         const pass = request.payload.password;
+        users.createUser(nama, pass);
         return `<h1>${nama} ${pass}</h1>`;
       },
     },
