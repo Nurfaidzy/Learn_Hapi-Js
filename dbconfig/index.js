@@ -1,12 +1,12 @@
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize("hapi_tutorial", "root", "", {
+const sequelize = new Sequelize("belajar", "postgres", "pgakulaku", {
   host: "localhost",
-  port: 3306,
-  dialect: "mysql",
+  port: 5432,
+  dialect: "postgres",
 });
-module.exports.connect = sequelize;
+// module.exports.sequelize = sequelize;
 
-module.exports.getUsers = async function () {
+export default async function getUsers() {
   try {
     await sequelize.authenticate();
     const [result, metadata] = await sequelize.query("select * from users");
@@ -14,4 +14,4 @@ module.exports.getUsers = async function () {
   } catch (error) {
     return "Error see data on database";
   }
-};
+}

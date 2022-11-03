@@ -24,11 +24,13 @@ const init = async () => {
     },
   ]);
 
+  // server.auth.strategy("login", "basic", { validate });
+
   server.route([
     {
       method: "GET",
       path: "/",
-      handler: (request, h) => {
+      handler: (request, response) => {
         return "<h1>Hello Word</h1>";
       },
     },
@@ -62,13 +64,6 @@ const init = async () => {
     },
     {
       method: "GET",
-      path: "/file",
-      handler: (request, h) => {
-        return h.file("./pages/index.html");
-      },
-    },
-    {
-      method: "GET",
       path: "/unduh",
       handler: (request, h) => {
         return h.file("./pages/index.html", {
@@ -87,6 +82,13 @@ const init = async () => {
       },
     },
     {
+      method: "GET",
+      path: "/file",
+      handler: (request, h) => {
+        return h.file("./pages/index.html");
+      },
+    },
+    {
       method: "POST",
       path: "/login",
       handler: (request, h) => {
@@ -94,6 +96,48 @@ const init = async () => {
         const pass = request.payload.password;
         users.createUser(nama, pass);
         return `<h1>${nama} ${pass}</h1>`;
+      },
+    },
+    {
+      method: "GET",
+      path: "/update",
+      handler: (request, h) => {
+        return h.file("./pages/update.html");
+      },
+    },
+    {
+      method: "POST",
+      path: "/updatekan",
+      handler: (request, h) => {
+        const nama = request.payload.username;
+        const pass = request.payload.password;
+        users.updateUser(nama, pass);
+        return `<p>${nama} ${pass}</p>`;
+      },
+    },
+    {
+      method: "GET",
+      path: "/hapus",
+      handler: (request, h) => {
+        return h.file("./pages/hapus.html");
+      },
+    },
+    {
+      method: "POST",
+      path: "/hapuskan",
+      handler: (request, h) => {
+        const id = request.payload.id;
+        users.hapusUser(id);
+        return `<p>${id}</p>`;
+      },
+    },
+    {
+      method: "GET",
+      path: "/takeData",
+      handler: (request, h) => {
+        users.getUser();
+        console.log(h.response);
+        return "<h1>sdsd</h1>";
       },
     },
   ]);
